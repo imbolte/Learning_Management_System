@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import express, { Request, Response, NextFunction } from "express";
+
+import express, { Request, Response, NextFunction, Application } from "express";
 export const app = express();
 import cors from "cors";
 import cookieParser from "cookie-parser";
