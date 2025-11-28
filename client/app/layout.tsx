@@ -148,7 +148,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className="bg-white dark:bg-gradient-to-b dark:from-gray-900 dark:to-black text-black dark:text-white min-h-screen">
         <Providers>{children}</Providers>
       </body>
     </html>

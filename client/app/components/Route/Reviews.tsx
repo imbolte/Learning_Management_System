@@ -2,7 +2,7 @@ import { styles } from "../../styles/styles";
 import Image from "next/image";
 import React from "react";
 import ReviewCard from "../Review/ReviewCard";
-import studyImage from "../../../public/assests/business-img.png"
+import studyImage from "../../../public/assets/business-img.png"
 // import studyImage from "../../../public/assets/study3.jpg";
 
 type Props = object;

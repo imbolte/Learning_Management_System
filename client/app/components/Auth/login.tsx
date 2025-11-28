@@ -11,14 +11,14 @@ import { FcGoogle } from "react-icons/fc";
 import { styles } from "../../styles/styles";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
-import {signIn} from "next-auth/react"
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   setRoute: (route: string) => void;
   setOpen: (open: boolean) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  refetch: any
-  
+  refetch: any;
 };
 
 const schema = Yup.object().shape({
@@ -28,9 +28,10 @@ const schema = Yup.object().shape({
   password: Yup.string().required("Please enter your password").min(6),
 });
 
-const Login: FC<Props> = ({ setRoute, setOpen,refetch }) => {
+const Login: FC<Props> = ({ setRoute, setOpen, refetch }) => {
   const [show, setShow] = useState(false);
-  const [login, { isSuccess, error }] = useLoginMutation();
+  const [login, { isSuccess, error, data }] = useLoginMutation();
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
@@ -45,7 +46,9 @@ const Login: FC<Props> = ({ setRoute, setOpen,refetch }) => {
       toast.success("Login Successfully");
       setOpen(false);
       refetch();
-      
+      if (data?.user?.role === "admin") {
+        router.push("/admin");
+      }
     }
     if (error) {
       if ("data" in error) {
@@ -53,7 +56,7 @@ const Login: FC<Props> = ({ setRoute, setOpen,refetch }) => {
         toast.error(errorData.data.message);
       }
     }
-  }, [isSuccess, error, setOpen]);
+  }, [isSuccess, error, setOpen, data, router, refetch]);
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
@@ -71,9 +74,8 @@ const Login: FC<Props> = ({ setRoute, setOpen,refetch }) => {
           onChange={handleChange}
           id="email"
           placeholder="Ballal_Dev_JBL@gmail.com"
-          className={`${errors.email && touched.email && "border-red-500"}${
-            styles.input
-          } rounded-xl `}
+          className={`${errors.email && touched.email && "border-red-500"}${styles.input
+            } rounded-xl `}
         />
         {errors.email && touched.email && (
           <span className="text-red-500 pt-2 block"> {errors.email} </span>
@@ -90,9 +92,8 @@ const Login: FC<Props> = ({ setRoute, setOpen,refetch }) => {
             onChange={handleChange}
             id="password"
             placeholder="JBL_CBB@123"
-            className={`${
-              errors.password && touched.password && "border-red-500"
-            }${styles.input} rounded-xl`}
+            className={`${errors.password && touched.password && "border-red-500"
+              }${styles.input} rounded-xl`}
           />
           {!show ? (
             <AiOutlineEyeInvisible
@@ -120,8 +121,10 @@ const Login: FC<Props> = ({ setRoute, setOpen,refetch }) => {
           Or join with
         </h5>
         <div className="flex items-center justify-center my-3">
-          <FcGoogle size={30} className="cursor-pointer mr-2" 
-           onClick={() => signIn("google")}
+          <FcGoogle
+            size={30}
+            className="cursor-pointer mr-2"
+            onClick={() => signIn("google")}
           />
           <AiFillGithub
             size={30}

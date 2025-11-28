@@ -449,54 +449,85 @@ export const updateProfilePicture = CatchAsyncError(
   }
 );
 
-// export const updateProfilePicture = CatchAsyncError(
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//       const { avatar } = req.body;
-//       const userId = String(req.user?._id);
-//       const user = await userModel.findById(userId);
+// ========== Admin Controllers ==========
 
-//       if (avatar && user) {
-//         // if user have already picture
-//         if (user?.avatar?.public_id) {
-//           //first delete image
-//           await cloudinary.v2.uploader.destroy(user?.avatar?.public_id);
+// Get all users (Admin only)
+export const getAllUsers = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const users = await userModel.find().sort({ createdAt: -1 });
 
-//           //second update picture
-//           const myCloud = cloudinary.v2.uploader.upload(avatar, {
-//             folder: "avatars",
-//             width: 150,
-//           });
-//           user.avatar = {
-//             // public_id:myCloud.public_id,
-//             // url:myCloud.secure_url
-//             public_id: (await myCloud).public_id,
-//             url: (await myCloud).secure_url,
-//           };
-//         } else {
-//           //create new profile picture
-//           const myCloud = cloudinary.v2.uploader.upload(avatar, {
-//             folder: "avatars",
-//             width: 150,
-//           });
-//           user.avatar = {
-//             // public_id:myCloud.public_id,
-//             // url:myCloud.secure_url
-//             public_id: (await myCloud).public_id,
-//             url: (await myCloud).secure_url,
-//           };
-//         }
-//       }
+      res.status(200).json({
+        success: true,
+        users,
+      });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
 
-//       await user?.save();
-//       await redis.set(userId, JSON.stringify(user));
+// Update user role (Admin only)
+export const updateUserRole = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id, role } = req.body;
 
-//       res.status(201).json({
-//         success: true,
-//         user,
-//       });
-//     } catch (error: any) {
-//       return next(new ErrorHandler(error.message, 400));
-//     }
-//   }
-// );
+      if (!id || !role) {
+        return next(new ErrorHandler("Please provide user id and role", 400));
+      }
+
+      const user = await userModel.findByIdAndUpdate(
+        id,
+        { role },
+        { new: true }
+      );
+
+      if (!user) {
+        return next(new ErrorHandler("User not found", 404));
+      }
+
+      // Update user in Redis cache
+      await redis.set(id, JSON.stringify(user));
+
+      res.status(200).json({
+        success: true,
+        message: "User role updated successfully",
+        user,
+      });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+// Delete user (Admin only)
+export const deleteUser = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        return next(new ErrorHandler("Please provide user id", 400));
+      }
+
+      const user = await userModel.findById(id);
+
+      if (!user) {
+        return next(new ErrorHandler("User not found", 404));
+      }
+
+      await user.deleteOne();
+
+      // Remove user from Redis cache
+      await redis.del(id);
+
+      res.status(200).json({
+        success: true,
+        message: "User deleted successfully",
+      });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);

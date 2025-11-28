@@ -1,0 +1,6 @@
+﻿app/components/Header.tsx(193,11): error TS2322: Type 'FC<Props>' is not assignable to type 'ComponentType<ComponentProps>'.
+  Type 'FunctionComponent<Props>' is not assignable to type 'FunctionComponent<ComponentProps>'.
+    Type 'ComponentProps' is not assignable to type 'Props'.
+      Property 'refetch' is optional in type 'ComponentProps' but required in type 'Props'.
+app/components/Profile/ChangePassword.tsx(2,24): error TS2307: Cannot find module '../../../styles/style' or its corresponding type declarations.
+app/components/Profile/ProfileInfo.tsx(3,24): error TS2307: Cannot find module '../../../styles/style' or its corresponding type declarations.
