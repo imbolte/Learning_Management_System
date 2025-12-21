@@ -9,12 +9,12 @@ import Footer from '../components/Footer'
 type Props = {}
 
 const Page = (props: Props) => {
-     const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(2);
   const [route, setRoute] = useState("Login");
   return (
-    <div>
-        <Heading
+    <div className="min-h-screen">
+      <Heading
         title="About us - ELearning"
         description="ELearning is a learning management system for helping programmers"
         keywords="programming,MERN"

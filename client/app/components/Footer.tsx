@@ -7,21 +7,21 @@ const Footer = (props: Props) => {
   return (
     <footer>
       {/* Divider */}
-      <div className="border border-[#ffffff1e] dark:border-[#ffffff1e]" />
+      <div className="border border-charcoal/10 dark:border-[#ffffff1e]" />
       <br />
 
       <div className="w-[95%] 800px:w-full 800px:max-w-[85%] mx-auto px-2 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           {/* About Section */}
           <div className="space-y-3">
-            <h3 className="text-[20px] font-[600] text-black dark:text-white">
+            <h3 className="text-[20px] font-[600] text-charcoal dark:text-white">
               About
             </h3>
             <ul className="space-y-4">
               <li>
                 <Link
                   href="/about"
-                  className="text-[16px] text-[#000000b3] dark:text-[#ffffffb3] hover:text-[#2190ff]"
+                  className="text-[16px] text-charcoal/70 dark:text-[#ffffffb3] hover:text-emerald-500"
                 >
                   Our Story
                 </Link>
@@ -29,7 +29,7 @@ const Footer = (props: Props) => {
               <li>
                 <Link
                   href="/privacy-policy"
-                  className="text-[16px] text-[#000000b3] dark:text-[#ffffffb3] hover:text-[#2190ff]"
+                  className="text-[16px] text-charcoal/70 dark:text-[#ffffffb3] hover:text-emerald-500"
                 >
                   Privacy Policy
                 </Link>
@@ -37,7 +37,7 @@ const Footer = (props: Props) => {
               <li>
                 <Link
                   href="/faq"
-                  className="text-[16px] text-[#000000b3] dark:text-[#ffffffb3] hover:text-[#2190ff]"
+                  className="text-[16px] text-charcoal/70 dark:text-[#ffffffb3] hover:text-emerald-500"
                 >
                   FAQ
                 </Link>
@@ -47,14 +47,14 @@ const Footer = (props: Props) => {
 
           {/* Quick Links */}
           <div className="space-y-3">
-            <h3 className="text-[20px] font-[600] text-black dark:text-white">
+            <h3 className="text-[20px] font-[600] text-charcoal dark:text-white">
               Quick Links
             </h3>
             <ul className="space-y-4">
               <li>
                 <Link
                   href="/courses"
-                  className="text-[16px] text-[#000000b3] dark:text-[#ffffffb3] hover:text-[#2190ff]"
+                  className="text-[16px] text-charcoal/70 dark:text-[#ffffffb3] hover:text-emerald-500"
                 >
                   Courses
                 </Link>
@@ -62,7 +62,7 @@ const Footer = (props: Props) => {
               <li>
                 <Link
                   href="/profile"
-                  className="text-[16px] text-[#000000b3] dark:text-[#ffffffb3] hover:text-[#2190ff]"
+                  className="text-[16px] text-charcoal/70 dark:text-[#ffffffb3] hover:text-emerald-500"
                 >
                   My Account
                 </Link>
@@ -70,7 +70,7 @@ const Footer = (props: Props) => {
               <li>
                 <Link
                   href="/course-dashboard"
-                  className="text-[16px] text-[#000000b3] dark:text-[#ffffffb3] hover:text-[#2190ff]"
+                  className="text-[16px] text-charcoal/70 dark:text-[#ffffffb3] hover:text-emerald-500"
                 >
                   Course Dashboard
                 </Link>
@@ -80,7 +80,7 @@ const Footer = (props: Props) => {
 
           {/* Social Links */}
           <div className="space-y-3">
-            <h3 className="text-[20px] font-[600] text-black dark:text-white">
+            <h3 className="text-[20px] font-[600] text-charcoal dark:text-white">
               Social Links
             </h3>
             <ul className="space-y-4">
@@ -89,7 +89,7 @@ const Footer = (props: Props) => {
                   href="https://www.youtube.com/watch?v=VeVahOuZIr8"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[16px] text-[#000000b3] dark:text-[#ffffffb3] hover:text-[#2190ff]"
+                  className="text-[16px] text-charcoal/70 dark:text-[#ffffffb3] hover:text-emerald-500"
                 >
                   YouTube
                 </a>
@@ -99,7 +99,7 @@ const Footer = (props: Props) => {
                   href="https://www.linkedin.com/in/raza-ur-rehman-6525472a6/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[16px] text-[#000000b3] dark:text-[#ffffffb3] hover:text-[#2190ff]"
+                  className="text-[16px] text-charcoal/70 dark:text-[#ffffffb3] hover:text-emerald-500"
                 >
                   LinkedIn
                 </a>
@@ -109,7 +109,7 @@ const Footer = (props: Props) => {
                   href="https://github.com/Raza181261"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[16px] text-[#000000b3] dark:text-[#ffffffb3] hover:text-[#2190ff]"
+                  className="text-[16px] text-charcoal/70 dark:text-[#ffffffb3] hover:text-emerald-500"
                 >
                   GitHub
                 </a>
@@ -119,10 +119,10 @@ const Footer = (props: Props) => {
 
           {/* Newsletter */}
           <div>
-            <h3 className="text-[20px] font-[600] text-black dark:text-white">
+            <h3 className="text-[20px] font-[600] text-charcoal dark:text-white">
               Newsletter
             </h3>
-            <p className="text-[16px] text-[#000000b3] dark:text-[#ffffffb3]">
+            <p className="text-[16px] text-charcoal/70 dark:text-[#ffffffb3]">
               Stay updated with new courses and tips! Subscribe to our
               newsletter.
             </p>
@@ -131,11 +131,11 @@ const Footer = (props: Props) => {
                 type="email"
                 placeholder="Enter your email"
                 required
-                className="w-full bg-transparent border rounded h-[40px] px-2 outline-none mt-[10px] font-Poppins"
+                className="w-full bg-transparent border border-charcoal/20 dark:border-white/20 rounded h-[40px] px-2 outline-none mt-[10px] font-Poppins focus:border-emerald-500"
               />
               <button
                 type="submit"
-                className="flex justify-center items-center py-3 px-6 rounded-full cursor-pointer bg-[#2190ff] text-white font-semibold text-[16px] mt-4 w-full 800px:w-[150px]"
+                className="flex justify-center items-center py-3 px-6 rounded-full cursor-pointer bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-[16px] mt-4 w-full 800px:w-[150px] transition"
               >
                 Subscribe
               </button>
@@ -143,7 +143,7 @@ const Footer = (props: Props) => {
           </div>
         </div>
         <br />
-        <p className="text-center text-black dark:text-white">
+        <p className="text-center text-charcoal dark:text-white">
           Copyright © 2025 ELearning | All Rights Reserved
         </p>
       </div>

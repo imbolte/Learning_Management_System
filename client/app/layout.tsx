@@ -140,6 +140,7 @@
 // app/layout.tsx
 import "./styles/global.css";
 import { Providers } from "./provider";
+import { GlobalBackground } from "@/components/ui/animated-backgrounds";
 
 export default function RootLayout({
   children,
@@ -148,7 +149,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-white dark:bg-gradient-to-b dark:from-gray-900 dark:to-black text-black dark:text-white min-h-screen">
+      <body className="bg-ivory dark:bg-gray-900 text-charcoal dark:text-white min-h-screen transition-colors duration-300">
+        <GlobalBackground />
         <Providers>{children}</Providers>
       </body>
     </html>

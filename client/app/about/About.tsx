@@ -4,14 +4,14 @@ type Props = {};
 
 const About = (props: Props) => {
   return (
-    <div className="text-black dark:text-white">
+    <div className="text-charcoal dark:text-white bg-transparent">
       <br />
       <h1 className={`${styles.title} 800px:!text-[45px]`}>
-        What is <span className="text-gradient">ELearning</span>?
+        What is <span className="text-emerald-500 font-bold">ELearning</span>?
       </h1>
       <br />
       <div className="w-[95%] 800px:w-[85%] m-auto">
-        <p className="text-[18px] font-Poppins">
+        <p className="text-[18px] font-Poppins text-charcoal/80 dark:text-white/90">
           Are you ready to take your programming skills to the next level? Look
           no further than ELearning, the premier programming community dedicated
           to helping new programmers achieve their goals and reach their full
@@ -55,13 +55,13 @@ const About = (props: Props) => {
           limit.
         </p>
         <br />
-        <span className="text-[22px] font-Cursive">Md Yasinur Rahaman </span>
-        <h5 className="text-[18px] font-Poppins">
+        <span className="text-[22px] font-Cursive text-emerald-500">Md Yasinur Rahaman </span>
+        <h5 className="text-[18px] font-Poppins text-charcoal/70 dark:text-white/80">
           Founder and CEO of ELearning
         </h5>
         <br />
-        <span className="text-[22px] font-Cursive">Mohi Uddin Maruf </span>
-        <h6 className="text-[18px] font-Poppins">
+        <span className="text-[22px] font-Cursive text-emerald-500">Mohi Uddin Maruf </span>
+        <h6 className="text-[18px] font-Poppins text-charcoal/70 dark:text-white/80">
           MD of ELearning
         </h6>
         <br />

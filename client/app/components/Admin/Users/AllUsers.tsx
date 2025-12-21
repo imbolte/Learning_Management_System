@@ -135,7 +135,16 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
     }
 
     const handleSubmit = async () => {
-        await updateUserRole({ id: userId, role: role });
+        if (!email) {
+            toast.error("Please enter an email!");
+            return;
+        }
+        const user = data?.users?.find((u: any) => u.email === email);
+        if (user) {
+            await updateUserRole({ id: user._id, role: role });
+        } else {
+            toast.error("User not found!");
+        }
     };
 
     const handleDelete = async () => {
@@ -167,37 +176,44 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                                 outline: "none",
                             },
                             "& .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon": {
-                                color: theme === "dark" ? "#fff" : "#000",
+                                color: theme === "dark" ? "#fff" : "#000 !important",
                             },
                             "& .MuiDataGrid-sortIcon": {
-                                color: theme === "dark" ? "#fff" : "#000",
+                                color: theme === "dark" ? "#fff" : "#000 !important",
                             },
                             "& .MuiDataGrid-row": {
-                                color: theme === "dark" ? "#fff" : "#000",
+                                color: theme === "dark" ? "#fff" : "#000 !important",
                                 borderBottom:
                                     theme === "dark"
                                         ? "1px solid #ffffff30!important"
                                         : "1px solid #ccc!important",
                             },
                             "& .MuiTablePagination-root": {
-                                color: theme === "dark" ? "#fff" : "#000",
+                                color: theme === "dark" ? "#fff" : "#000 !important",
                             },
                             "& .MuiDataGrid-cell": {
                                 borderBottom: "none!important",
                             },
                             "& .name-column--cell": {
-                                color: theme === "dark" ? "#fff" : "#000",
+                                color: theme === "dark" ? "#fff" : "#000 !important",
                             },
                             "& .MuiDataGrid-columnHeaders": {
                                 backgroundColor: theme === "dark" ? "#3e4396" : "#A4A9FC",
                                 borderBottom: "none",
-                                color: theme === "dark" ? "#fff" : "#000",
+                                color: theme === "dark" ? "#fff" : "#000 !important",
+                            },
+                            "& .MuiDataGrid-columnHeader": {
+                                color: theme === "dark" ? "#fff" : "#000 !important",
+                                backgroundColor: theme === "dark" ? "#3e4396" : "#A4A9FC",
+                            },
+                            "& .MuiDataGrid-columnHeaderTitle": {
+                                color: theme === "dark" ? "#fff" : "#000 !important",
                             },
                             "& .MuiDataGrid-virtualScroller": {
                                 backgroundColor: theme === "dark" ? "#1F2A40" : "#F2F0F0",
                             },
                             "& .MuiDataGrid-footerContainer": {
-                                color: theme === "dark" ? "#fff" : "#000",
+                                color: theme === "dark" ? "#fff" : "#000 !important",
                                 borderTop: "none",
                                 backgroundColor: theme === "dark" ? "#3e4396" : "#A4A9FC",
                             },

@@ -14,7 +14,12 @@ export const authOptions = {
         }),
     ],
     secret: process.env.NEXTAUTH_SECRET,
+    debug: true, // Enable debug logs
 };
+
+console.log("NextAuth GOOGLE_CLIENT_ID:", process.env.GOOGLE_CLIENT_ID ? "Loaded" : "Missing");
+console.log("NextAuth NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET ? "Loaded" : "Missing");
+console.log("NextAuth NEXTAUTH_URL:", process.env.NEXTAUTH_URL ? process.env.NEXTAUTH_URL : "Missing");
 
 const handler = NextAuth(authOptions);
 

@@ -61,19 +61,26 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
             name: data?.user?.name,
             avatar: data?.user?.image,
           });
-          refetch();
         }
       }
       if (data === null) {
-        if (isSuccess) {
-          toast.success("Login Successfull");
-        }
+        // Only show success if we just finished a social auth
+        // if (isSuccess) {
+        //   toast.success("Login Successfull");
+        // }
       }
       if (data === null && !isLoading && !userData) {
         setLogout(true);
       }
     }
-  }, [data, userData, isSuccess, socialAuth, refetch, isLoading]);
+  }, [data, userData, socialAuth, isLoading]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Login Successfully");
+      refetch();
+    }
+  }, [isSuccess, refetch]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -102,7 +109,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
     <div className="w-full relative">
       <div
         className={`${active
-          ? "bg-opacity-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black fixed top-0 left-0 w-full h-[80px] z-[80] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500"
+          ? "bg-white/10 dark:bg-slate-900/30 backdrop-blur-md fixed top-0 left-0 w-full h-[80px] z-[80] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500"
           : "w-full border-b dark:border-[#ffffff1c] h-[80px] z-[80] dark:shadow"
           }`}
       >

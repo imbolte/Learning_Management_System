@@ -64,6 +64,16 @@ const SideBarProfile: FC<Props> = ({
                     Enrolled Courses
                 </h5>
             </div>
+            <div
+                className={`w-full flex items-center px-3 py-4 cursor-pointer ${active === 4 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
+                    }`}
+                onClick={() => setActive(4)}
+            >
+                <SiCoursera size={20} className="dark:text-white text-black" />
+                <h5 className="pl-2 800px:block hidden font-Poppins dark:text-white text-black">
+                    Purchase History
+                </h5>
+            </div>
             {user.role === "admin" && (
                 <Link
                     className={`w-full flex items-center px-3 py-4 cursor-pointer ${active === 6 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
@@ -80,7 +90,7 @@ const SideBarProfile: FC<Props> = ({
                 </Link>
             )}
             <div
-                className={`w-full flex items-center px-3 py-4 cursor-pointer ${active === 4 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
+                className={`w-full flex items-center px-3 py-4 cursor-pointer ${active === 5 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
                     }`}
                 onClick={() => logOutHandler()}
             >

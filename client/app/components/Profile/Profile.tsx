@@ -5,6 +5,7 @@ import { useLogOutQuery } from "@/redux/features/auth/authApi";
 import { signOut } from "next-auth/react";
 import ProfileInfo from "./ProfileInfo";
 import ChangePassword from "./ChangePassword";
+import PurchaseHistory from "./PurchaseHistory";
 
 type Props = {
     user: any;
@@ -37,7 +38,7 @@ const Profile: FC<Props> = ({ user }) => {
     return (
         <div className="w-[85%] flex mx-auto">
             <div
-                className={`w-[60px] 800px:w-[310px] h-[450px] dark:bg-slate-900 bg-opacity-90 border bg-white dark:border-[#ffffff1d] border-[#00000014] rounded-[5px] shadow-sm dark:shadow-sm mt-[80px] mb-[80px] sticky ${scroll ? "top-[120px]" : "top-[30px]"
+                className={`w-[60px] 800px:w-[310px] h-[450px] bg-white/10 dark:bg-slate-900/30 backdrop-blur-sm border dark:border-[#ffffff1d] border-[#00000014] rounded-[5px] shadow-sm dark:shadow-sm mt-[80px] mb-[80px] sticky ${scroll ? "top-[120px]" : "top-[30px]"
                     } left-[30px]`}
             >
                 <SideBarProfile
@@ -56,6 +57,11 @@ const Profile: FC<Props> = ({ user }) => {
             {active === 2 && (
                 <div className="w-full h-full bg-transparent mt-[80px]">
                     <ChangePassword />
+                </div>
+            )}
+            {active === 4 && (
+                <div className="w-full h-full bg-transparent">
+                    <PurchaseHistory />
                 </div>
             )}
         </div>

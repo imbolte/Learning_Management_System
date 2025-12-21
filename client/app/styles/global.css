@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
+    --background: #FAFDF7;
+    /* Ivory */
+    --foreground: #2D2D2D;
+    /* Charcoal */
 }
 
 @theme inline {
@@ -20,7 +22,8 @@
 }
 
 body {
-    color: rgb(var(--foreground-rgb));
+    background-color: var(--background);
+    color: var(--foreground);
 }
 
 .hero_animation {

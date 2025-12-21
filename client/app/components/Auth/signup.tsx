@@ -10,8 +10,8 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { styles } from "../../../app/styles/styles";
 import { useRegisterMutation } from "@/redux/features/auth/authApi";
-// import { useRegisterUserMutation } from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 type Props = {
   setRoute: (route: string) => void;
@@ -27,20 +27,14 @@ const schema = Yup.object().shape({
 
 const SignUp: FC<Props> = ({ setRoute }) => {
   const [show, setShow] = useState(false);
-  const [register,{data,error,isSuccess}] = useRegisterMutation()
+  const [register, { data, error, isSuccess }] = useRegisterMutation()
 
   useEffect(() => {
-    if(isSuccess){
+    if (isSuccess) {
       const message = data?.message || "Registration successful"
       toast.success(message)
       setRoute("Verification")
     }
-    // if(error){
-    //   if("data" in error){
-    //     const errorData = error as any;
-    //     toast.error(errorData.data.message);
-    //   }
-    // }
 
     if (error) {
       const errorData = error as { data?: { message?: string } };
@@ -48,15 +42,15 @@ const SignUp: FC<Props> = ({ setRoute }) => {
         toast.error(errorData.data.message);
       }
     }
-    
-  },[isSuccess,error, data?.message, setRoute])
+
+  }, [isSuccess, error, data?.message, setRoute])
 
   const formik = useFormik({
     initialValues: { name: "", email: "", password: "" },
     validationSchema: schema,
-    onSubmit: async ({ name,email, password }) => {
+    onSubmit: async ({ name, email, password }) => {
       const data = {
-        name,email, password
+        name, email, password
       }
       await register(data);
     },
@@ -67,20 +61,19 @@ const SignUp: FC<Props> = ({ setRoute }) => {
       <h1 className={`${styles.title}`}>Join to ELearning</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className={`${styles.label}`} htmlFor="email">
+          <label className={`${styles.label}`} htmlFor="name">
             Enter Your Name
           </label>
           <br />
           <input
             type="text"
-            name=""
+            name="name"
             value={values.name}
             onChange={handleChange}
             id="name"
             placeholder="Ballal dev"
-            className={`${errors.name && touched.name && "border-red-500"}${
-              styles.input
-            } rounded-xl`}
+            className={`${errors.name && touched.name && "border-red-500"}${styles.input
+              } rounded-xl`}
           />
           {errors.name && touched.name && (
             <span className="text-red-500 pt-2 block"> {errors.name} </span>
@@ -93,21 +86,20 @@ const SignUp: FC<Props> = ({ setRoute }) => {
         <br />
         <input
           type="email"
-          name=""
+          name="email"
           value={values.email}
           onChange={handleChange}
           id="email"
           placeholder="Ballal_Dev_JBL@gmail.com"
-          className={`${errors.email && touched.email && "border-red-500"}${
-            styles.input
-          } rounded-xl`}
+          className={`${errors.email && touched.email && "border-red-500"}${styles.input
+            } rounded-xl`}
         />
         {errors.email && touched.email && (
           <span className="text-red-500 pt-2 block"> {errors.email} </span>
         )}
 
         <div className="w-full mt-5 relative mb-1">
-          <label className={`${styles.label}`} htmlFor="email">
+          <label className={`${styles.label}`} htmlFor="password">
             Enter Your Password
           </label>
           <input
@@ -117,9 +109,8 @@ const SignUp: FC<Props> = ({ setRoute }) => {
             onChange={handleChange}
             id="password"
             placeholder="JBL_CBB@123"
-            className={`${
-              errors.password && touched.password && "border-red-500"
-            }${styles.input} rounded-xl`}
+            className={`${errors.password && touched.password && "border-red-500"
+              }${styles.input} rounded-xl`}
           />
           {!show ? (
             <AiOutlineEyeInvisible
@@ -147,10 +138,15 @@ const SignUp: FC<Props> = ({ setRoute }) => {
           Or join with
         </h5>
         <div className="flex items-center justify-center my-3">
-          <FcGoogle size={30} className="cursor-pointer mr-2" />
+          <FcGoogle
+            size={30}
+            className="cursor-pointer mr-2"
+            onClick={() => signIn("google")}
+          />
           <AiFillGithub
             size={30}
             className="cursor-pointer ml-2  text-black dark:text-white"
+            onClick={() => signIn("github")}
           />
         </div>
 

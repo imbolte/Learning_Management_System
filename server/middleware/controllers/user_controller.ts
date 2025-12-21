@@ -16,7 +16,7 @@ import {
 } from "../../utils/jwt";
 import redis from "../../utils/redis";
 
-import { getUserById } from "../../services/use_services";
+import { getUserById } from "../../services/user_services";
 import { v2 as cloudinary } from "cloudinary";
 
 // ========== Types ==========
@@ -303,8 +303,12 @@ export const socialAuth = CatchAsyncError(
     try {
       const { name, email, avatar } = req.body as ISocialAuthBody;
       const user = await userModel.findOne({ email });
-      if (user) {
-        const newUser = await userModel.create({ name, email, avatar });
+      if (!user) {
+        const newUser = await userModel.create({
+          name,
+          email,
+          avatar: avatar ? { url: avatar } : undefined,
+        });
         sendToken(newUser, 200, res);
       } else {
         sendToken(user, 200, res);
@@ -330,8 +334,8 @@ export const updateUserInfo = CatchAsyncError(
 
       const user = await userModel.findById(userId);
       if (email && user) {
-        const isEmailExist = await userModel.find({ email });
-        if (isEmailExist) {
+        const isEmailExist = await userModel.findOne({ email });
+        if (isEmailExist && isEmailExist._id.toString() !== userId) {
           return next(new ErrorHandler("Email already exist", 400));
         }
         user.email = email;
@@ -414,31 +418,27 @@ export const updateProfilePicture = CatchAsyncError(
       const userId = req.user._id;
 
       const user = await userModel.findById(userId);
-      // If user has an existing avatar, remove it from Cloudinary
+
       if (avatar && user) {
         if (user?.avatar?.public_id) {
           await cloudinary.uploader.destroy(user.avatar.public_id);
-
-          const myCloud = await cloudinary.uploader.upload(avatar, {
-            folder: "avatars",
-            width: 150,
-          });
-        } else {
-          const myCloud = await cloudinary.uploader.upload(avatar, {
-            folder: "avatars",
-            width: 150,
-          });
-
-          user.avatar = {
-            public_id: myCloud.public_id,
-            url: myCloud.secure_url,
-          };
         }
+
+        const myCloud = await cloudinary.uploader.upload(avatar, {
+          folder: "avatars",
+          width: 150,
+        });
+
+        user.avatar = {
+          public_id: myCloud.public_id,
+          url: myCloud.secure_url,
+        };
       }
 
-      await user.save();
+      await user?.save();
 
       await redis.set(userId.toString(), JSON.stringify(user));
+
       res.status(201).json({
         success: true,
         user,

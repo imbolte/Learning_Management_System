@@ -1,4 +1,6 @@
 require("dotenv").config();
+console.log("DEBUG: ACCESS_TOKEN loaded:", process.env.ACCESS_TOKEN ? "YES" : "NO");
+console.log("DEBUG: DB_URI loaded:", process.env.DB_URI ? "YES" : "NO");
 import mongoose, { Document, Model, Models, Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
@@ -42,7 +44,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "please enter your password"],
       minlength: [6, "please enter minimum 6 digit password"],
       select: false,
     },
@@ -81,15 +82,15 @@ userSchema.pre<IUser>("save", async function (next) {
 
 userSchema.methods.SignAccessToken = function () {
   return jwt.sign({ id: this._id }, process.env.ACCESS_TOKEN || '', {
-    expiresIn : "5m",
+    expiresIn: "5m",
   });
 };
 
 //sign refresh token
 
 userSchema.methods.SignRefreshToken = function () {
-  return jwt.sign({ id: this._id }, process.env.REFRESH_TOKEN || '',{
-    expiresIn : "3d",
+  return jwt.sign({ id: this._id }, process.env.REFRESH_TOKEN || '', {
+    expiresIn: "3d",
   });
 };
 

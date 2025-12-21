@@ -87,13 +87,13 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="w-full min-h-screen flex items-center bg-[#0f1524] relative overflow-hidden">
+    <div className="w-full min-h-screen flex items-center bg-transparent relative overflow-hidden">
       {/* MAIN CONTAINER */}
       <div className="w-full max-w-[1600px] mx-auto px-4 py-10 flex flex-col lg:flex-row items-center lg:justify-between gap-12">
-        
+
         {/* LEFT SECTION */}
         <div className=" lg:ml-40 left-section w-full lg:w-1/2 flex items-center justify-center lg:justify-start relative pt-[40px] lg:pt-0">
-          
+
           {/* Circle Background (Slightly Larger to Match Bigger Image) */}
           <div
             className="circle-background hero_animation absolute
@@ -124,14 +124,14 @@ const Hero = () => {
         {/* RIGHT SECTION (unchanged) */}
         <div className="right-section w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left z-10 relative max-w-[550px]">
 
-          <h2 className="text-white font-bold mb-4 lg:mb-5 
+          <h2 className="text-charcoal dark:text-white font-bold mb-4 lg:mb-5 
             text-[24px] sm:text-[32px] lg:text-[38px] xl:text-[44px]
             leading-tight sm:leading-[38px] lg:leading-[46px]
             px-3 lg:px-0">
             Improve Your Online Learning Experience Better Instantly
           </h2>
 
-          <p className="text-gray-300 font-normal mb-6 lg:mb-8
+          <p className="text-charcoal/80 dark:text-gray-300 font-normal mb-6 lg:mb-8
             text-[14px] sm:text-[15px] lg:text-[16px]
             px-3 lg:px-0">
             We have 40k+ Online courses &amp; 500K+ Online registered student.
@@ -139,13 +139,13 @@ const Hero = () => {
           </p>
 
           <div className="w-full sm:w-[80%] lg:w-[95%] mb-6 lg:mb-8">
-            <div className="flex items-center bg-[#282d3e] rounded-3xl overflow-hidden shadow-lg">
+            <div className="flex items-center bg-white dark:bg-charcoal/30 rounded-3xl overflow-hidden shadow-lg border border-charcoal/10">
               <input
                 type="text"
                 placeholder="Search Courses..."
-                className="flex-1 bg-transparent text-white px-4 py-3 outline-none placeholder-gray-500 text-[14px]"
+                className="flex-1 bg-transparent text-charcoal dark:text-white px-4 py-3 outline-none placeholder-charcoal/50 dark:placeholder-gray-500 text-[14px]"
               />
-              <button className="bg-[#3b82f6] p-3 px-5 hover:bg-[#2563eb] transition">
+              <button className="bg-emerald-500 p-3 px-5 hover:bg-emerald-600 transition">
                 <svg
                   className="w-5 h-5 text-white"
                   fill="none"
@@ -168,7 +168,7 @@ const Hero = () => {
               <img
                 src="https://edmy-react.hibootstrap.com/images/banner/client-1.jpg"
                 alt="Client"
-                className="rounded-full w-9 h-9 sm:w-10 sm:h-10 border-2 border-[#0f1524]"
+                className="rounded-full w-9 h-9 sm:w-10 sm:h-10 border-2 border-emerald-500"
               />
               <img
                 src="https://edmy-react.hibootstrap.com/images/banner/client-2.jpg"
@@ -182,9 +182,9 @@ const Hero = () => {
               />
             </div>
 
-            <p className="text-gray-300 text-[14px] sm:text-[15px] lg:text-[16px] font-semibold text-center sm:text-left">
+            <p className="text-charcoal/80 dark:text-gray-300 text-[14px] sm:text-[15px] lg:text-[16px] font-semibold text-center sm:text-left">
               500K+ People already trusted us.{" "}
-              <a href="/courses" className="text-[#46e256] hover:underline">
+              <a href="/courses" className="text-emerald-500 hover:underline">
                 View Courses
               </a>
             </p>

@@ -16,9 +16,12 @@ import {
     ExitToApp,
 } from "@mui/icons-material";
 import avatarDefault from "../../../../public/assets/avatar.png";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { userLoggedOut } from "@/redux/features/auth/authSlice";
 import Image from "next/image";
 import { useTheme as useNextTheme } from "next-themes";
+import { signOut } from "next-auth/react";
+import { authApi } from "@/redux/features/auth/authApi";
 
 interface ItemProps {
     title: string;
@@ -53,6 +56,7 @@ const AdminSidebar = () => {
     const [selected, setSelected] = useState("Dashboard");
     const [mounted, setMounted] = useState(false);
     const { theme, setTheme } = useNextTheme();
+    const dispatch = useDispatch();
 
     useEffect(() => setMounted(true), []);
 
@@ -60,52 +64,57 @@ const AdminSidebar = () => {
         return null;
     }
 
-    const logoutHandler = () => {
+
+
+    const logoutHandler = async () => {
         setTheme("system");
+        await signOut({ redirect: false });
+        await dispatch(authApi.endpoints.logOut.initiate(undefined));
+        window.location.pathname = "/";
     };
 
     return (
         <Box
             sx={{
                 "& .ps-sidebar-root": {
-                    background: `${theme === "dark"
-                            ? "linear-gradient(to bottom, rgb(17, 24, 39), rgb(0, 0, 0)) !important"
-                            : "#ffffff !important"
-                        }`,
-                    borderRight: `1px solid ${theme === "dark" ? "#2d3748" : "#e2e8f0"}`,
+                    background: "transparent !important",
+                    borderRight: `2px solid ${theme === "dark" ? "rgba(46, 204, 113, 0.3)" : "rgba(46, 204, 113, 0.2)"}`,
                 },
                 "& .ps-icon-wrapper": {
                     backgroundColor: "transparent !important",
                 },
                 "& .ps-menu-button:hover": {
-                    backgroundColor: `${theme === "dark" ? "rgba(31, 41, 55, 0.6) !important" : "#e2e8f0 !important"
-                        }`,
-                    color: `${theme === "dark" ? "#60a5fa !important" : "#1e40af !important"}`,
+                    backgroundColor: `${theme === "dark" ? "rgba(163, 230, 53, 0.15) !important" : "rgba(163, 230, 53, 0.1) !important"}`,
+                    color: `${theme === "dark" ? "#A3E635 !important" : "#16a34a !important"}`,
                     borderRadius: "8px !important",
                     transition: "all 0.3s ease !important",
                 },
                 "& .ps-menu-button.ps-active": {
-                    backgroundColor: `${theme === "dark" ? "rgba(30, 64, 175, 0.6) !important" : "#dbeafe !important"
-                        }`,
-                    color: `${theme === "dark" ? "#60a5fa !important" : "#1e40af !important"}`,
+                    backgroundColor: `${theme === "dark" ? "rgba(46, 204, 113, 0.2) !important" : "rgba(46, 204, 113, 0.15) !important"}`,
+                    color: `${theme === "dark" ? "#2ECC71 !important" : "#16a34a !important"}`,
                     borderRadius: "8px !important",
-                    borderLeft: `3px solid ${theme === "dark" ? "#3b82f6" : "#2563eb"}`,
+                    borderLeft: `4px solid ${theme === "dark" ? "#2ECC71" : "#16a34a"}`,
+                    fontWeight: "600 !important",
                 },
                 "& .ps-menu-button": {
                     padding: "12px 20px !important",
                     margin: "4px 8px !important",
-                    color: `${theme === "dark" ? "#e2e8f0" : "#1e293b"}`,
+                    color: `${theme === "dark" ? "#FAFDF7" : "#2D2D2D"}`,
                     transition: "all 0.2s ease !important",
                 },
                 "& .ps-menu-label": {
-                    color: `${theme === "dark" ? "#f1f5f9" : "#0f172a"}`,
+                    color: `${theme === "dark" ? "#FAFDF7" : "#2D2D2D"}`,
                     fontWeight: "500 !important",
                 },
             }}
-            className="bg-gradient-to-b from-gray-900 to-black dark:from-gray-900 dark:to-black bg-white dark:bg-transparent"
+            className=""
         >
             <Sidebar
                 collapsed={isCollapsed}
+                backgroundColor="transparent"
+                rootStyles={{
+                    border: "none",
+                }}
                 style={{
                     position: "fixed",
                     top: 0,
@@ -113,6 +122,8 @@ const AdminSidebar = () => {
                     height: "100vh",
                     zIndex: 99999999999999,
                     width: isCollapsed ? "0%" : "16%",
+                    background: "transparent !important",
+                    borderRight: `2px solid ${theme === "dark" ? "rgba(46, 204, 113, 0.3)" : "rgba(46, 204, 113, 0.2)"}`,
                 }}
             >
                 <Menu>
@@ -125,7 +136,7 @@ const AdminSidebar = () => {
                     >
                         {isCollapsed ? (
                             <div onClick={() => setIsCollapsed(!isCollapsed)} className="flex items-center justify-center p-2">
-                                <ArrowForwardIos className="!text-black dark:!text-[#ffffffc7]" />
+                                <ArrowForwardIos className="!text-black dark:!text-white" />
                             </div>
                         ) : (
                             <Box
@@ -141,7 +152,7 @@ const AdminSidebar = () => {
                                     ELearning
                                 </h3>
                                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)} className="inline-block">
-                                    <ArrowBackIos className="!text-black dark:!text-[#ffffffc7]" />
+                                    <ArrowBackIos className="!text-black dark:!text-white" />
                                 </IconButton>
                             </Box>
                         )}
@@ -213,16 +224,16 @@ const AdminSidebar = () => {
                             {!isCollapsed && "Content"}
                         </Typography>
                         <Item
-                            title="Create Course"
-                            to="/admin/create-course"
-                            icon={<VideoCallOutlined />}
+                            title="Live Courses"
+                            to="/admin/courses"
+                            icon={<OndemandVideo />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
-                            title="Live Courses"
-                            to="/admin/courses"
-                            icon={<OndemandVideo />}
+                            title="Create Course"
+                            to="/admin/create-course"
+                            icon={<VideoCallOutlined />}
                             selected={selected}
                             setSelected={setSelected}
                         />
@@ -263,15 +274,12 @@ const AdminSidebar = () => {
                         >
                             {!isCollapsed && "Extras"}
                         </Typography>
-                        <div onClick={logoutHandler}>
-                            <Item
-                                title="Logout"
-                                to="/"
-                                icon={<ExitToApp />}
-                                selected={selected}
-                                setSelected={setSelected}
-                            />
-                        </div>
+                        <MenuItem
+                            icon={<ExitToApp />}
+                            onClick={logoutHandler}
+                        >
+                            <Typography className="!text-[16px] !font-Poppins">Logout</Typography>
+                        </MenuItem>
 
                         <Typography
                             variant="h5"
@@ -290,7 +298,7 @@ const AdminSidebar = () => {
                     </Box>
                 </Menu>
             </Sidebar>
-        </Box>
+        </Box >
     );
 };
 
